@@ -4,27 +4,27 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Date;
 
 @Entity
-@Table(name = "userAddress")
+@Table(name = "reviews")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressEntity {
+public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String addressLine1;
-    private String addressLine2;
-    private String city;
-    private String state;
-    private String country;
     @Column(nullable = false)
-    private String postalCode;
+    private int rating;
     @Column(nullable = false)
-    private boolean isDefaultAddress;
+    private String comment;
+    @CreationTimestamp
+    private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 }

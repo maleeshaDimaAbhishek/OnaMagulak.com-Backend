@@ -4,27 +4,33 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "userAddress")
+@Table(name = "orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressEntity {
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String addressLine1;
-    private String addressLine2;
-    private String city;
-    private String state;
-    private String country;
+
     @Column(nullable = false)
-    private String postalCode;
+    private double total;
+
     @Column(nullable = false)
-    private boolean isDefaultAddress;
+    private String status;
+
+    @Column(nullable = false)
+    private String paymentStatus;
+
+    @CreationTimestamp
+    private LocalDateTime  creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID")
-    private UserEntity user;
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 }

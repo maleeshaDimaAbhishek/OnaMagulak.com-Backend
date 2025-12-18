@@ -41,6 +41,13 @@ public class UserEntity {
     private String role;
 
     //add relations
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AddressEntity> addresses = new ArrayList<>();
+    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ReviewEntity> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<OrderEntity> orders = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart")
+    private CartEntity cart;
 }
