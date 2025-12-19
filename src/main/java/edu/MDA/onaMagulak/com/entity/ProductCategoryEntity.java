@@ -4,31 +4,20 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.sql.Date;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "productCategory")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewEntity {
+public class ProductCategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private int rating;
-    @Column(nullable = false)
-    private String comment;
-    @CreationTimestamp
-    private Date date;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private ProductEntity product;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CartEntity cart;
 }
