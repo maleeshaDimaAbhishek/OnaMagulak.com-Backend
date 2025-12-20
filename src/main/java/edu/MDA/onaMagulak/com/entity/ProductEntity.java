@@ -36,5 +36,7 @@ public class ProductEntity {
     private List<ProductCategoryEntity> productCategories=new ArrayList<>();
     @OneToMany(mappedBy = "id",cascade = CascadeType.ALL)
     private List<ReviewEntity> reviews=new ArrayList<>();
+    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL)
+    private List<CartItemEntity> cartItems=new ArrayList<>();
 
 }
