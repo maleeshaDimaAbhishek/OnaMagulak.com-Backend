@@ -1,11 +1,11 @@
 package edu.MDA.onaMagulak.com.controller;
 
+import edu.MDA.onaMagulak.com.dto.request.UserCreationDTO;
 import edu.MDA.onaMagulak.com.dto.response.UserResponseDTO;
 import edu.MDA.onaMagulak.com.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,7 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    @GetMapping("/getAll")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUser());
+    }
+    @PostMapping("/add")
+    public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserCreationDTO userCreationDTO){
+        return ResponseEntity.ok(userService.saveUser(userCreationDTO));
     }
 }
