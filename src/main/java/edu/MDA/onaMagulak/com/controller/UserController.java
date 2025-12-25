@@ -22,4 +22,10 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserCreationDTO userCreationDTO){
         return ResponseEntity.ok(userService.saveUser(userCreationDTO));
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void>deleteById(@PathVariable String id){
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

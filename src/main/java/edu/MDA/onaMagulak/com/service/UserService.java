@@ -9,4 +9,6 @@ public interface UserService {
     List<UserResponseDTO> getAllUser();
 
     UserResponseDTO saveUser(UserCreationDTO userCreationDTO);
+
+    void deleteById(String id);
 }
