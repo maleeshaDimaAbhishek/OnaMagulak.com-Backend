@@ -1,6 +1,7 @@
 package edu.MDA.onaMagulak.com.service.serviceImpl;
 
 import edu.MDA.onaMagulak.com.dto.request.UserCreationDTO;
+import edu.MDA.onaMagulak.com.dto.request.UserUpdateDTO;
 import edu.MDA.onaMagulak.com.dto.response.UserResponseDTO;
 import edu.MDA.onaMagulak.com.entity.UserEntity;
 import edu.MDA.onaMagulak.com.exception.ResourceNotFoundException;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
         String encodedPwd=passwordEncoder.encode(userCreationDTO.getPassword());
         userCreationDTO.setPassword(encodedPwd);
         UserEntity save = userRepository.save(modelMapper.map(userCreationDTO, UserEntity.class));
-        userRepository.deleteById(save.getId());
+        userRepository.save(save);
         return modelMapper.map(save,UserResponseDTO.class);
     }
 
@@ -40,6 +41,18 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(()->new
                         ResourceNotFoundException("User not found with id: "+id));
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserResponseDTO updateByUserId(UserUpdateDTO userUpdateDTO, String id) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        userEntity.setName(userUpdateDTO.getName());
+        userEntity.setEmail(userUpdateDTO.getEmail());
+        userEntity.setPhone(userUpdateDTO.getPhone());
+
+        UserEntity updatedUser=userRepository.save(userEntity);
+        return modelMapper.map(updatedUser,UserResponseDTO.class);
     }
 
 }
